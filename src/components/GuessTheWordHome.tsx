@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 interface GuessTheWordHomeProps {
   onPlay: () => void;
   onHelp: () => void;
+  title: string;
 }
 
-const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({ onPlay, onHelp }) => {
+const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({ onPlay, onHelp, title }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800 flex items-center justify-center p-4">
       <div className="text-center max-w-4xl mx-auto">
@@ -24,6 +25,7 @@ const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({ onPlay, onHelp }) =
           
           <h1 className="text-5xl font-black text-gray-800 mb-4">
             What's The Word?
+            <span>{title}</span>
           </h1>
           <p className="text-xl text-gray-600 mb-2">Interactive activity on Self Awareness</p>
           <p className="text-lg text-gray-500">for Grades 2-3</p>

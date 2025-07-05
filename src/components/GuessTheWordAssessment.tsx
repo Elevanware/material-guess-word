@@ -45,6 +45,7 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
         <GuessTheWordHome 
           onPlay={handlePlay}
           onHelp={handleHelp}
+          title={assessment.title}
         />
       )}
 
