@@ -92,3 +92,106 @@ All colors MUST be HSL.
   }
 }
 
+/* .game-bg {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.game-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
+  opacity: 0.3;
+  filter: blur(2px);
+  z-index: -1;
+} */
+body * {
+ font-family: "Inter", sans-serif;
+}
+
+.game-bg {
+  position: relative;
+  background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
+  z-index: 0;
+  padding: 50px;
+}
+
+.game-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* background-color: rgb(10 152 150 / 40%); */
+    /* background-color:rgb(10 8 35 / 80%); */
+    background-color: rgb(66 62 62 / 66%);
+    z-index: -1;
+}
+.game-bg h1{
+  font-family: "Comic Relief", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+.play-btn{
+  cursor: pointer;
+  font-family: "Pacifico", cursive;
+  font-weight: 700;
+  font-style: normal;
+  color: #beff00;
+}
+.title{
+  font-family: "Comic Relief", system-ui;
+  font-weight: 600;
+}
+
+.game-img-left{
+  position: absolute;
+  /* top: -10%; */
+  left: -10%;
+}
+
+.game-img-right{
+  position: absolute;
+  /* top: -10%; */
+  right: -10%;
+}
+
+/* .bg-main {
+  position: relative;
+  background: url('../public/images/bg1.png') no-repeat center center / cover;
+  height: 465px;
+  width: 100%;
+
+} */
+
+.help-btn{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+.word{
+  max-width: 500px;
+  margin: 50px auto;
+}
+.assesment-card {
+    background: #ffffff;
+    border: none;
+    box-shadow: 0px 0px 5px 0px #a6a6a6;
+}
+
+.game-btn{
+  border: 1px solid black;
+  color: black;
+  height: 45px;
+}
+.create-btn {
+  background-color: black;
+  color: white;
+  height: 50px;
+  padding: 12px;
+  font-size: 18px;
+  cursor: pointer;
+}

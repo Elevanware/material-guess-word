@@ -55,39 +55,39 @@ const AssessmentManager = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-20">
           <h1 className="text-3xl font-bold text-gray-800">Assessment Manager</h1>
-          <Button onClick={() => setView('form')}>
+          <Button onClick={() => setView('form')} className='create-btn'>
             <Plus className="w-4 h-4 mr-2" />
             Create New Assessment
           </Button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {assessments.map((assessment) => (
-            <Card key={assessment.id} className="hover:shadow-lg transition-shadow">
+            <Card key={assessment.id} className="hover:shadow-lg transition-shadow assesment-card">
               <CardHeader>
-                <CardTitle className="text-lg">{assessment.title}</CardTitle>
-                <p className="text-sm text-gray-600">
+                <h2 className="text-4xl font-black text-gray-800 mx-auto">{assessment.title}</h2>
+                <p className="text-xl text-gray-800">
                   {assessment.words.length} word{assessment.words.length !== 1 ? 's' : ''}
                 </p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <div className="text-sm text-gray-600">
-                    <strong>Words:</strong>
+                    <h4 className='mb-3 text-xl text-gray-600 font-black'>Words:</h4>
                     <div className="mt-1 space-y-1">
                       {assessment.words.slice(0, 3).map((word) => (
                         <div key={word.id} className="flex justify-between">
-                          <span>{word.word}</span>
-                          {word.hint && <span className="text-xs text-gray-500">({word.hint})</span>}
+                          <p className='text-md'>{word.word}</p>
+                          {word.hint && <p className="text-md text-gray-500">({word.hint})</p>}
                         </div>
                       ))}
                       {assessment.words.length > 3 && (
-                        <div className="text-xs text-gray-400">
+                        <p className="text-xs text-gray-400">
                           +{assessment.words.length - 3} more...
-                        </div>
+                        </p>
                       )}
                     </div>
                   </div>
@@ -96,7 +96,7 @@ const AssessmentManager = () => {
                     <Button
                       size="sm"
                       onClick={() => handlePlayAssessment(assessment)}
-                      className="flex-1"
+                      className="flex-1 game-btn"
                     >
                       <Play className="w-4 h-4 mr-2" />
                       Play
@@ -104,6 +104,7 @@ const AssessmentManager = () => {
                     <Button
                       size="sm"
                       variant="destructive"
+                      className='game-btn'
                       onClick={() => handleDeleteAssessment(assessment.id)}
                     >
                       <Trash2 className="w-4 h-4" />
