@@ -1,22 +1,28 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+} from '../components/ui/dialog';
 
 interface HelpModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  isOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
+const HelpModal: React.FC<HelpModalProps> = ({ isOpen, isOpenChange }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <Dialog open={isOpen} onOpenChange={isOpenChange}>
+          <DialogContent className="max-w-2xl">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-bold text-gray-800">How to Play</h2>
           <Button 
-            onClick={onClose}
+            onClick={() => isOpenChange(false)}
             variant="ghost"
             className="p-2"
           >
@@ -59,7 +65,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
         
         <div className="mt-8 text-center">
           <Button 
-            onClick={onClose}
+            onClick={() => isOpenChange(false)}
             className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg"
           >
             Got it! Let's Play
@@ -67,6 +73,9 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
         </div>
       </div>
     </div>
+          </DialogContent>
+    </Dialog>
+    
   );
 };
 

@@ -5,14 +5,18 @@ import AlphabetGrid from './AlphabetGrid';
 import GameNavigation from './GameNavigation';
 import { Button } from '@/components/ui/button';
 
+const levelUpAudio = new Audio(`/sound/level-up.mp3`);
+const failureAudio = new Audio(`/sound/failure.mp3`);
+
 interface GamePlayProps {
   words: WordData[];
+  title: string;
   onHome: () => void;
   onHelp: () => void;
   onComplete: (results: GuessResult[]) => void;
 }
 
-const GamePlay: React.FC<GamePlayProps> = ({ words, onHome, onHelp, onComplete }) => {
+const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onComplete }) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState<Set<string>>(new Set());
   const [usedLetters, setUsedLetters] = useState<Set<string>>(new Set());
@@ -35,9 +39,11 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, onHome, onHelp, onComplete }
     setUsedLetters(newUsedLetters);
 
     if (wordLetters.has(letter)) {
+      levelUpAudio.play();
       setGuessedLetters(prev => new Set(prev).add(letter));
     } else {
-      setWrongGuesses(prev => prev + 1);
+      failureAudio.play();
+      setWrongGuesses(prev => prev + 1);  
     }
   };
 
@@ -75,7 +81,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, onHome, onHelp, onComplete }
         onHome={onHome}
         onHelp={onHelp}
         onNext={handleNext}
-        showNext={isWordComplete || wrongGuesses >= 3}
+        showNext={isWordComplete || wrongGuesses >= 5}
         currentWord={currentWordIndex + 1}
         totalWords={words.length}
       />
@@ -83,7 +89,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, onHome, onHelp, onComplete }
       <div className="pt-12 pb-8 px-4">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-white mb-4">What's the word?</h2>
-          <div className="text-2xl font-bold text-yellow-400 mb-8">I am ...</div>
+          <div className="text-2xl font-bold text-yellow-400 mb-8">{title}</div>
         </div>
 
         <WordDisplay 
@@ -98,10 +104,10 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, onHome, onHelp, onComplete }
 
         <div className="text-center mt-8">
           <div className="text-white text-lg mb-4">
-            Wrong guesses: {wrongGuesses}/3
+            Wrong guesses: {wrongGuesses}/5
           </div>
           
-          {wrongGuesses >= 3 && !isWordComplete && (
+          {wrongGuesses >= 5 && !isWordComplete && (
             <div className="mb-4">
               <p className="text-red-400 text-xl mb-4">Too many wrong guesses!</p>
               <p className="text-white text-lg">The word was: <span className="font-bold text-yellow-400">{currentWord.word.toUpperCase()}</span></p>

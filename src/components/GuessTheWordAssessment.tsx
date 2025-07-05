@@ -51,6 +51,7 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
       {gameState === 'playing' && (
         <GamePlay
           words={assessment.words}
+          title={assessment.title}
           onHome={handleHome}
           onHelp={handleHelp}
           onComplete={handleComplete}
@@ -67,7 +68,7 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
 
       <HelpModal 
         isOpen={showHelp}
-        onClose={() => setShowHelp(false)}
+        isOpenChange={setShowHelp}
       />
     </div>
   );
