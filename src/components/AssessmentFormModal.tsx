@@ -76,7 +76,7 @@ console.log("ass", selectedAssessment)
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent>
-        <div className="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden fade-in border-4 border-purple-200">
+        <div className="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden fade-in border-4 border-purple-200">
                 <div className="p-6 border-b border-purple-200 bg-gradient-to-r from-purple-400 to-pink-400">
                     <div className="flex justify-between items-center">
                         <h2 id="modalTitle" className="text-2xl font-bold text-white flex items-center gap-2">🎯 Create New Assessment</h2>

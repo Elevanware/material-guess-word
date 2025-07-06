@@ -138,7 +138,7 @@ body button{
   position: relative;
   background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
   z-index: 0;
-  padding: 50px;
+  padding: 0px;
 }
 
 .create-game-bg::before {
