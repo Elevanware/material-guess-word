@@ -29,7 +29,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
   const currentWord = words[currentWordIndex];
   const wordLetters = new Set(currentWord.word.toUpperCase().split(''));
   const isWordComplete = [...wordLetters].every(letter => guessedLetters.has(letter));
-  if(isWordComplete){
+  if (isWordComplete) {
     winAudio.play();
   }
 
@@ -48,7 +48,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
       setGuessedLetters(prev => new Set(prev).add(letter));
     } else {
       failureAudio.play();
-      setWrongGuesses(prev => prev + 1);  
+      setWrongGuesses(prev => prev + 1);
     }
   };
 
@@ -92,67 +92,69 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
         totalWords={words.length}
         hinttitle={currentWord?.hint}
       />
-     <div className='container mx-auto relative'>
-      <div className='absolute r-10 desc-section'>
-        <h2 className="text-white text-sm">
-          Wrong guesses: <span className="font-bold text-yellow-400 ml-5">{wrongGuesses}/5</span>
-        </h2>
-        {wrongGuesses >= 5 && !isWordComplete && (
-          <div className="mb-4">
-            <p className="text-white text-sm">The word was: <span className="font-bold text-yellow-400 ml-5">{currentWord.word.toUpperCase()}</span></p>
-            <p className="text-red-400 text-sm mb-0">Too many wrong guesses!</p>
-          </div>
-        )}
-      </div>
-      
-      <div className="pt-2 pb-8 px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl text-white mb-4 letter-game-text">What's the word?</h2>
-          <div className="text-6xl font-bold text-yellow-400 mb-8 word-title">{title}</div>
+      <div className='container mx-auto relative'>
+        <div className='absolute r-10 desc-section'>
+          <h2 className="text-white text-sm">
+            Wrong guesses: <span className="font-bold text-yellow-400 ml-5">{wrongGuesses}/5</span>
+          </h2>
+          {wrongGuesses >= 5 && !isWordComplete && (
+            <div className="mb-4">
+              <p className="text-white text-sm">The word was: <span className="font-bold text-yellow-400 ml-5">{currentWord.word.toUpperCase()}</span></p>
+              <p className="text-red-400 text-sm mb-0">Too many wrong guesses!</p>
+            </div>
+          )}
         </div>
 
-        <WordDisplay 
-          word={currentWord.word} 
-          guessedLetters={guessedLetters} 
-          isWordComplete={isWordComplete}
-        />
+        <div className="pt-2 pb-8 px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl text-white mb-4 letter-game-text">What's the word?</h2>
+            <div className="text-6xl font-bold text-yellow-400 mb-8 word-title">{title}</div>
+          </div>
 
-        <AlphabetGrid 
-          usedLetters={usedLetters}
-          onLetterClick={handleLetterClick}
-        />
+          <WordDisplay
+            word={currentWord.word}
+            guessedLetters={guessedLetters}
+            isWordComplete={isWordComplete}
+          />
+
+          <AlphabetGrid
+            usedLetters={usedLetters}
+            onLetterClick={handleLetterClick}
+          />
 
           {isWordComplete && (
-              <div className="confetti confetti-wrapper absolute flex items-center justify-center z-10 winning-text">
-                <p className="confetti text-green-400 text-4xl font-bold animate__animated animate__heartBeat bg-transparent bg-opacity-80 px-6 py-4 rounded-lg shadow-xl">
+            <div className="confetti confetti-wrapper absolute flex items-center justify-center z-10 winning-text">
+              <p className="confetti text-green-400 text-4xl font-bold animate__animated animate__heartBeat bg-transparent bg-opacity-80 px-6 py-4 rounded-lg shadow-xl">
                 <ConfettiExplosion particleCount={500} particleSize={8} duration={2500} />
-                </p>
-              </div>
+              </p>
+            </div>
           )}
 
-        <div className="flex justify-center space-x-4 relative max-w-7xl mx-auto">
-          {isWordComplete ? (
-            <Button 
-              onClick={handleNext}
-              variant={showNext ? "default" : "ghost"}
-              disabled={!showNext}
-              className='arrow-btn absolute border-0 -mt-15'
-            >
-              <img className='h-40' src='/images/green-arrow.png' />
-            </Button>
-          ) : (
-            <Button 
-              onClick={handleSkip}
-              variant="outline"
-              className='arrow-btn absolute border-0 -mt-15'
-            >
-           <img className='h-40' src='/images/orange-arrow.png' />
-            </Button>
-          )}
-            
-            
+          <div className="flex justify-center space-x-4 relative max-w-7xl mx-auto">
+            {isWordComplete ? (
+              <Button
+                onClick={handleNext}
+                variant={showNext ? "default" : "ghost"}
+                disabled={!showNext}
+                className='arrow-btn absolute border-0 -mt-15'
+              >
+                <img className='h-40' src='/images/green-arrow.png' />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSkip}
+                variant="outline"
+                className='arrow-btn absolute border-0 -mt-15'
+              >
+                <img className='h-40' src='/images/orange-arrow.png' />
+              </Button>
+            )}
+
+
           </div>
-        {/* Help Button */}
+        </div>
+      </div>
+       {/* Help Button */}
         <Button 
           onClick={onHelp}
           variant="outline"
@@ -161,8 +163,6 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
           <HelpCircle className="mr-2 h-6 w-6" />
           Help
         </Button>
-      </div>
-      </div>
     </div>
   );
 };
