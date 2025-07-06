@@ -92,7 +92,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
         totalWords={words.length}
         hinttitle={currentWord?.hint}
       />
-
+     <div className='container mx-auto relative'>
       <div className='absolute r-10 desc-section'>
         <h2 className="text-white text-sm">
           Wrong guesses: <span className="font-bold text-yellow-400 ml-5">{wrongGuesses}/5</span>
@@ -130,7 +130,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
               </div>
           )}
 
-        <div className="flex justify-center space-x-4 relative w-7xl mx-auto">
+        <div className="flex justify-center space-x-4 relative max-w-7xl mx-auto">
           {isWordComplete ? (
             <Button 
               onClick={handleNext}
@@ -161,6 +161,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
           <HelpCircle className="mr-2 h-6 w-6" />
           Help
         </Button>
+      </div>
       </div>
     </div>
   );

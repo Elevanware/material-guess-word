@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Play, Edit, Trash2 } from 'lucide-react';
+import { Plus, Play, Edit, Trash2, Trash2Icon } from 'lucide-react';
 import { AssessmentData } from '@/types/assessment';
 import AssessmentForm from '@/components/AssessmentForm';
 import GuessTheWordAssessment from '@/components/GuessTheWordAssessment';
@@ -77,75 +77,75 @@ const AssessmentManager = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4 create-game-bg">
       <div className="w-full mx-auto">
-        <header className="bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg relative z-10">
-            <div className="container mx-auto px-8 py-6 flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                  Word Detective
-                </h1>
-                <p className="text-purple-100 text-sm">Create fun word games for kids!</p>
-              </div>
-              <button onClick={() => setOpenForm(true)} className="text-sm bg-yellow-400 hover:bg-yellow-500 text-purple-800 px-6 py-3 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                ✨ Create New Game
-              </button>
+        <header className="bg-gradient-to-r bg-black shadow-lg relative z-10">
+          <div className="container mx-auto px-8 py-6 flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                🧩 Word Detective
+              </h1>
+              <p className="text-purple-100 text-sm">Create fun word games for kids!</p>
             </div>
+            <button onClick={() => setOpenForm(true)} className="text-sm bg-white text-black-800 px-8 py-4 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+              Create New Game
+            </button>
+          </div>
         </header>
         <main className="container w-full mx-auto py-8">
           <div id="assessmentsGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8 py-6">
-  {assessments.map((assessment) => (
-    <div
-      key={assessment.id}
-      className="bg-white border border-gray-200 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-200"
-    >
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-          🎯 {assessment.title}
-        </h3>
-        {assessment.type === 'guess-the-word' && (
-          <p className="text-sm text-gray-500 mt-1">Guess the word game</p>
-        )}
-      </div>
+            {assessments.map((assessment) => (
+              <div
+                key={assessment.id}
+                className="bg-white border border-gray-200 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-200"
+              >
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                    🎯 {assessment.title}
+                  </h3>
+                  {assessment.type === 'guess-the-word' && (
+                    <p className="text-sm text-gray-500 mt-1">Guess the word game</p>
+                  )}
+                </div>
 
-      <div className="mb-4 mt-5">
-        <div className="text-sm font-medium text-gray-600 mb-2">Preview Words</div>
-        <div className="flex flex-wrap gap-2">
-          {assessment.words.slice(0, 3).map((word) => (
-            <span
-              key={word.id}
-              className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
-            >
-              {word.word}
-            </span>
-          ))}
-          {assessment.words.length > 3 && (
-            <span className="text-sm text-gray-400">+ {assessment.words.length - 3} more</span>
-          )}
-        </div>
-      </div>
+                <div className="mb-4 mt-5">
+                  <div className="text-sm font-medium text-gray-600 mb-2">Preview Words</div>
+                  <div className="flex flex-wrap gap-2">
+                    {assessment.words.slice(0, 3).map((word) => (
+                      <span
+                        key={word.id}
+                        className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                      >
+                        {word.word}
+                      </span>
+                    ))}
+                    {assessment.words.length > 3 && (
+                      <span className="text-sm text-gray-400">+ {assessment.words.length - 3} more</span>
+                    )}
+                  </div>
+                </div>
 
-      <div className="flex flex-wrap gap-2 mt-10">
-        <button
-          onClick={() => handlePlayAssessment(assessment)}
-          className="flex-1 bg-gray-800 text-white text-sm py-2 px-4 rounded-md hover:bg-gray-700 transition"
-        >
-        Play
-        </button>
-        <button
-          onClick={() => handleEditAssessment(assessment)}
-          className="flex-1 border-1 bg-gray-100 text-gray-800 text-sm py-2 px-4 rounded-md hover:bg-gray-200 transition"
-        >
-        Edit
-        </button>
-        <button
-          onClick={() => handleDeleteAssessment(assessment.id)}
-          className="bg-red-900 text-red-900 text-sm py-2 px-3 rounded-md hover:bg-red-200 transition"
-        >
-          🗑️
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
+                <div className="flex flex-wrap gap-2 mt-10">
+                  <button
+                    onClick={() => handlePlayAssessment(assessment)}
+                    className="flex-1 bg-gray-800 text-white text-sm py-2 px-4 rounded-md hover:bg-gray-700 transition"
+                  >
+                    Play
+                  </button>
+                  <button
+                    onClick={() => handleEditAssessment(assessment)}
+                    className="flex-1 border-1 bg-gray-100 text-gray-800 text-sm py-2 px-4 rounded-md hover:bg-gray-200 transition"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteAssessment(assessment.id)}
+                    className="border-1 text-red-900 text-sm py-2 px-3 rounded-md hover:bg-red-200 transition"
+                  >
+                    <Trash2Icon />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
 
         </main>
 

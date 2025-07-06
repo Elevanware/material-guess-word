@@ -21,7 +21,7 @@ const GameNavigation: React.FC<GameNavigationProps> = ({
 
   return (
     <div className="p-4 px-10">
-      <div className="flex justify-between items-center w-full mx-auto">
+      <div className="flex justify-between items-center w-full mx-auto container">
         <div className="flex space-x-4">
           <Button
             onClick={onHome}

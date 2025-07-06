@@ -16,7 +16,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, isOpenChange }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={isOpenChange}>
-      <DialogContent className="w-full max-w-8xl rounded-2xl border-none p-0 overflow-hidden shadow-2xl">
+      <DialogContent className="w-full max-w-2xl rounded-2xl border-none p-0 overflow-hidden shadow-2xl">
         <div className="relative bg-white rounded-2xl p-6 max-h-[80vh] flex flex-col">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">

@@ -116,7 +116,11 @@ body * {
 body button{
   cursor: pointer;
 }
-
+input:focus{
+outline: none !important;
+border: 1px solid oklch(87.2% 0.01 258.338) !important;
+box-shadow: none !important;
+}
 .game-bg {
   position: relative;
   background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
@@ -134,20 +138,20 @@ body button{
   z-index: -1;
 }
 
-.create-game-bg {
+.create-game-bg, .result-page {
   position: relative;
   background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
   z-index: 0;
   padding: 0px;
 }
 
-.create-game-bg::before {
+.create-game-bg::before, .result-page::before {
   content: "";
   position: absolute;
   inset: 0;
   /* background-color: rgb(10 152 150 / 40%); */
   /* background-color:rgb(10 8 35 / 80%); */
-  background-color: rgb(46 43 43 / 91%);
+  background-color: rgb(31 31 31 / 79%);
   z-index: -1;
 }
 
@@ -275,7 +279,7 @@ body button{
 
 .arrow-btn {
   position: absolute;
-  top: 0px;
+  bottom: 40px;
   right: 0px;
   cursor: pointer;
 }

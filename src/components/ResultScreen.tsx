@@ -16,7 +16,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ results, onHome, onPlayAg
   const averageTime = results.reduce((sum, r) => sum + r.timeSpent, 0) / results.length / 1000;
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4 result-page">
       <div className="bg-white rounded-3xl p-8 max-w-4xl w-full shadow-2xl">
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">🎉 Great Job! 🎉</h1>
@@ -75,16 +75,15 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ results, onHome, onPlayAg
         <div className="flex justify-center space-x-4">
           <Button 
             onClick={onPlayAgain}
-            className="bg-green-500 hover:bg-green-600 text-white text-xl px-8 py-4 rounded-full"
+            className="bg-green-500 hover:bg-green-600 text-white text-xl px-8 py-6 rounded-full"
           >
             Play Again
           </Button>
           <Button 
             onClick={onHome}
             variant="outline"
-            className="bg-white hover:bg-gray-50 text-gray-700 text-xl px-8 py-4 rounded-full border-2"
+            className="bg-white hover:bg-gray-50 text-gray-700 text-xl px-8 py-6 rounded-full border-2"
           >
-            <Home className="mr-2 h-6 w-6" />
             Home
           </Button>
         </div>
