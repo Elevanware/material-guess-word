@@ -132,13 +132,13 @@ const AssessmentManager = () => {
         </button>
         <button
           onClick={() => handleEditAssessment(assessment)}
-          className="flex-1 bg-gray-100 text-gray-800 text-sm py-2 px-4 rounded-md hover:bg-gray-200 transition"
+          className="flex-1 border-1 bg-gray-100 text-gray-800 text-sm py-2 px-4 rounded-md hover:bg-gray-200 transition"
         >
         Edit
         </button>
         <button
           onClick={() => handleDeleteAssessment(assessment.id)}
-          className="bg-red-100 text-red-600 text-sm py-2 px-3 rounded-md hover:bg-red-200 transition"
+          className="bg-red-900 text-red-900 text-sm py-2 px-3 rounded-md hover:bg-red-200 transition"
         >
           🗑️
         </button>
