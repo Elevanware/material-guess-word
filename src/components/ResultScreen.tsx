@@ -16,7 +16,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ results, onHome, onPlayAg
   const averageTime = results.reduce((sum, r) => sum + r.timeSpent, 0) / results.length / 1000;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl p-8 max-w-4xl w-full shadow-2xl">
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">🎉 Great Job! 🎉</h1>

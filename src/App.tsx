@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import AssessmentManager from "./pages/AssessmentManager";
+import 'animate.css';
 
 const queryClient = new QueryClient();
 

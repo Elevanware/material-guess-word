@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { WordData, GuessResult } from '@/types/assessment';
+import ConfettiExplosion from 'react-confetti-explosion';
 import WordDisplay from './WordDisplay';
 import AlphabetGrid from './AlphabetGrid';
 import GameNavigation from './GameNavigation';
 import { Button } from '@/components/ui/button';
+import { ArrowRight, HelpCircle } from 'lucide-react';
 
 const levelUpAudio = new Audio(`/sound/level-up.mp3`);
 const failureAudio = new Audio(`/sound/failure.mp3`);
@@ -75,26 +77,42 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
     handleNext();
   };
 
+  const showNext = isWordComplete || wrongGuesses >= 5
+  console.log(currentWord)
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800 home-page">
       <GameNavigation
         onHome={onHome}
-        onHelp={onHelp}
-        onNext={handleNext}
-        showNext={isWordComplete || wrongGuesses >= 5}
+        // onNext={handleNext}
+        // showNext={isWordComplete || wrongGuesses >= 5}
         currentWord={currentWordIndex + 1}
         totalWords={words.length}
+        hinttitle={currentWord?.hint}
       />
+
+      <div className='absolute r-10 desc-section'>
+        <h2 className="text-white text-sm">
+          Wrong guesses: <span className="font-bold text-yellow-400 ml-5">{wrongGuesses}/5</span>
+        </h2>
+        {wrongGuesses >= 5 && !isWordComplete && (
+          <div className="mb-4">
+            <p className="text-white text-sm">The word was: <span className="font-bold text-yellow-400 ml-5">{currentWord.word.toUpperCase()}</span></p>
+            <p className="text-red-400 text-sm mb-0">Too many wrong guesses!</p>
+          </div>
+        )}
+      </div>
       
-      <div className="pt-12 pb-8 px-4">
+      <div className="pt-2 pb-8 px-4">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-white mb-4">What's the word?</h2>
-          <div className="text-2xl font-bold text-yellow-400 mb-8">{title}</div>
+          <h2 className="text-2xl text-white mb-4 letter-game-text">What's the word?</h2>
+          <div className="text-6xl font-bold text-yellow-400 mb-8 word-title">{title}</div>
         </div>
 
         <WordDisplay 
           word={currentWord.word} 
           guessedLetters={guessedLetters} 
+          isWordComplete={isWordComplete}
         />
 
         <AlphabetGrid 
@@ -102,34 +120,45 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
           onLetterClick={handleLetterClick}
         />
 
-        <div className="text-center mt-8">
-          <div className="text-white text-lg mb-4">
-            Wrong guesses: {wrongGuesses}/5
-          </div>
-          
-          {wrongGuesses >= 5 && !isWordComplete && (
-            <div className="mb-4">
-              <p className="text-red-400 text-xl mb-4">Too many wrong guesses!</p>
-              <p className="text-white text-lg">The word was: <span className="font-bold text-yellow-400">{currentWord.word.toUpperCase()}</span></p>
-            </div>
-          )}
-
           {isWordComplete && (
-            <div className="mb-4">
-              <p className="text-green-400 text-2xl font-bold animate-bounce">Correct! 🎉</p>
-            </div>
+              <div className="confetti confetti-wrapper absolute flex items-center justify-center z-10 winning-text">
+                <p className="confetti text-green-400 text-4xl font-bold animate__animated animate__heartBeat bg-transparent bg-opacity-80 px-6 py-4 rounded-lg shadow-xl">
+                <ConfettiExplosion particleCount={500} particleSize={8} duration={2500} />
+                </p>
+              </div>
           )}
 
-          <div className="flex justify-center space-x-4">
+        <div className="flex justify-center space-x-4 relative w-7xl mx-auto">
+          {isWordComplete ? (
+            <Button 
+              onClick={handleNext}
+              variant={showNext ? "default" : "ghost"}
+              disabled={!showNext}
+              className='arrow-btn absolute border-0 -mt-15'
+            >
+              <img className='h-40' src='/images/green-arrow.png' />
+            </Button>
+          ) : (
             <Button 
               onClick={handleSkip}
               variant="outline"
-              className="bg-white hover:bg-gray-100 text-gray-700 px-6 py-3"
+              className='arrow-btn absolute border-0 -mt-15'
             >
-              Skip Word
+           <img className='h-40' src='/images/orange-arrow.png' />
             </Button>
+          )}
+            
+            
           </div>
-        </div>
+        {/* Help Button */}
+        <Button 
+          onClick={onHelp}
+          variant="outline"
+          className="bg-white hover:bg-gray-50 text-gray-700 text-xl px-8 py-4 rounded-full shadow-lg border-2 border-gray-300 help-btn"
+        >
+          <HelpCircle className="mr-2 h-6 w-6" />
+          Help
+        </Button>
       </div>
     </div>
   );

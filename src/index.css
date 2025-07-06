@@ -111,7 +111,10 @@ All colors MUST be HSL.
   z-index: -1;
 } */
 body * {
- font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
+}
+body button{
+  cursor: pointer;
 }
 
 .game-bg {
@@ -122,38 +125,58 @@ body * {
 }
 
 .game-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    /* background-color: rgb(10 152 150 / 40%); */
-    /* background-color:rgb(10 8 35 / 80%); */
-    background-color: rgb(66 62 62 / 66%);
-    z-index: -1;
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* background-color: rgb(10 152 150 / 40%); */
+  /* background-color:rgb(10 8 35 / 80%); */
+  background-color: rgb(66 62 62 / 66%);
+  z-index: -1;
 }
-.game-bg h1{
+
+.create-game-bg {
+  position: relative;
+  background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
+  z-index: 0;
+  padding: 50px;
+}
+
+.create-game-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* background-color: rgb(10 152 150 / 40%); */
+  /* background-color:rgb(10 8 35 / 80%); */
+  background-color: rgb(46 43 43 / 91%);
+  z-index: -1;
+}
+
+.game-bg h1 {
   font-family: "Comic Relief", system-ui;
   font-weight: 600;
   font-style: normal;
 }
-.play-btn{
+
+.play-btn {
   cursor: pointer;
   font-family: "Pacifico", cursive;
   font-weight: 700;
   font-style: normal;
   color: #beff00;
 }
-.title{
+
+.title {
   font-family: "Comic Relief", system-ui;
   font-weight: 600;
 }
 
-.game-img-left{
+.game-img-left {
   position: absolute;
   /* top: -10%; */
   left: -10%;
 }
 
-.game-img-right{
+.game-img-right {
   position: absolute;
   /* top: -10%; */
   right: -10%;
@@ -167,31 +190,163 @@ body * {
 
 } */
 
-.help-btn{
+.help-btn {
   position: absolute;
   bottom: 15px;
   right: 15px;
 }
-.word{
+
+.word {
   max-width: 500px;
   margin: 50px auto;
 }
+
 .assesment-card {
-    background: #ffffff;
-    border: none;
-    box-shadow: 0px 0px 5px 0px #a6a6a6;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0px 0px 5px 0px #a6a6a6;
 }
 
-.game-btn{
+.game-btn {
   border: 1px solid black;
   color: black;
   height: 45px;
 }
+
 .create-btn {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   height: 50px;
   padding: 12px;
   font-size: 18px;
   cursor: pointer;
+}
+
+.home-page {
+  position: relative;
+  background: url('../public/images/alpha-bg1.jpg') no-repeat center center / cover;
+  z-index: 0;
+}
+
+.home-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* background-color: rgb(10 152 150 / 40%); */
+  /* background-color:rgb(10 8 35 / 80%); */
+  background-color: rgb(0 0 0 / 81%);
+  z-index: -1;
+}
+
+.letter-text {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.home-icon svg, .hint-icon svg {
+  height: 40px;
+  width: 40px;
+}
+
+.home-icon , .hint-icon{
+  cursor: pointer;
+  padding: 0px;
+}
+
+.home-icon:hover, .hint-icon:hover {
+  background: transparent;
+}
+
+.word-title {
+  font-family: "Merienda", cursive;
+}
+
+.letter-game-text {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.apha-letters {
+  font-family: "Merienda", cursive;
+  font-weight: 900;
+}
+
+.arrow-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.desc-section {
+  right: 15px;
+  top: 100px;
+}
+
+.home-icon img {
+  filter: invert(1);
+}
+.winning-text p{
+  font-family: 'Merienda';
+}
+.winning-text{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* light gray */
+  border-radius: 3px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; /* darker on hover */
+}
+
+.gradient-border {
+  position: relative;
+  border: 4px solid transparent;
+  border-radius: 0.5rem;
+  background-clip: padding-box;
+  background-color: black;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  z-index: -1;
+  border-radius: 0.75rem;
+  background: linear-gradient(45deg, #00e5ff, #ff00cc, #ffcc00);
+  animation: gradientShift 4s linear infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.alpha-box{
+  min-height: 370px;
+}
+.alpha-box button{
+  width: 128px;
+  height: 85px;
 }

@@ -54,7 +54,7 @@ const AssessmentForm: React.FC<AssessmentFormProps> = ({ onSubmit, onCancel }) =
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
-      <div className="max-w-2xl mx-auto">
+      <div className="w-2xl mx-auto">
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl text-center">Create New Assessment</CardTitle>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import 'animate.css';
 
 interface AlphabetGridProps {
   usedLetters: Set<string>;
@@ -6,38 +7,51 @@ interface AlphabetGridProps {
 }
 
 const AlphabetGrid: React.FC<AlphabetGridProps> = ({ usedLetters, onLetterClick }) => {
+  const [animatingLetter, setAnimatingLetter] = useState<string | null>(null);
+
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  
+
   const getLetterColor = (index: number) => {
     const colors = [
-      'bg-green-400', 'bg-cyan-400', 'bg-purple-400', 'bg-red-400', 'bg-yellow-400', 
-      'bg-orange-400', 'bg-pink-400', 'bg-blue-400', 'bg-indigo-400', 'bg-teal-400',
-      'bg-lime-400', 'bg-rose-400', 'bg-amber-400', 'bg-emerald-400', 'bg-violet-400',
-      'bg-sky-400', 'bg-fuchsia-400', 'bg-green-500', 'bg-cyan-500', 'bg-purple-500',
-      'bg-red-500', 'bg-yellow-500', 'bg-orange-500', 'bg-pink-500', 'bg-blue-500', 'bg-indigo-500'
+      'text-green-500', 'text-cyan-500', 'text-purple-500', 'text-red-500', 'text-yellow-500',
+      'text-orange-500', 'text-pink-500', 'text-blue-500', 'text-indigo-500', 'text-teal-500',
+      'text-lime-500', 'text-rose-500', 'text-amber-500', 'text-emerald-500', 'text-violet-500',
+      'text-sky-500', 'text-fuchsia-500', 'text-green-600', 'text-cyan-600', 'text-purple-600',
+      'text-red-600', 'text-yellow-600', 'text-orange-600', 'text-pink-600', 'text-blue-600', 'text-indigo-600'
     ];
     return colors[index % colors.length];
   };
 
+  const handleClick = (letter: string) => {
+    setAnimatingLetter(letter);
+    setTimeout(() => {
+      onLetterClick(letter);         // trigger main logic
+      setAnimatingLetter(null);     // reset animation state
+    }, 200); // match animation duration
+  };
+
   return (
-    <div className="grid grid-cols-7 gap-4 max-w-2xl mx-auto p-4">
-      {alphabet.map((letter, index) => (
-        <button
-          key={letter}
-          onClick={() => onLetterClick(letter)}
-          disabled={usedLetters.has(letter)}
-          className={`
-            w-16 h-16 rounded-xl text-white text-2xl font-bold border-4 border-black
-            transform transition-all duration-200 shadow-lg
-            ${usedLetters.has(letter) 
-              ? 'opacity-0 scale-0 cursor-not-allowed' 
-              : `${getLetterColor(index)} hover:scale-110 hover:shadow-xl active:scale-95 cursor-pointer`
-            }
-          `}
-        >
-          {!usedLetters.has(letter) && letter}
-        </button>
-      ))}
+    <div className="grid grid-cols-7 gap-4 w-5xl mx-auto p-4 alpha-box">
+      {alphabet.map((letter, index) => {
+        const isUsed = usedLetters.has(letter);
+        const isAnimating = animatingLetter === letter;
+
+        return (
+          <button
+            key={letter}
+            onClick={() => handleClick(letter)}
+            disabled={isUsed || isAnimating}
+            className={`
+              apha-letters text-7xl font-bold transform transition-all duration-200 shadow-lg
+              ${isUsed ? 'opacity-0 scale-0 cursor-not-allowed' : ''}
+              ${!isUsed && getLetterColor(index)}
+              ${isAnimating ? 'animate__animated animate__zoomOut' : 'active:scale-95 cursor-pointer'}
+            `}
+          >
+            {!isUsed && letter}
+          </button>
+        );
+      })}
     </div>
   );
 };
