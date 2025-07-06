@@ -7,22 +7,18 @@ import ResultsScreen from './ResultScreen';
 
 interface GuessTheWordAssessmentProps {
   assessment: AssessmentData;
+  onComplete: () => void
 }
 
 type GameState = 'home' | 'playing' | 'results';
 
-const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessment }) => {
+const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessment, onComplete }) => {
   const [gameState, setGameState] = useState<GameState>('home');
   const [showHelp, setShowHelp] = useState(false);
   const [results, setResults] = useState<GuessResult[]>([]);
 
   const handlePlay = () => {
     setGameState('playing');
-  };
-
-  const handleHome = () => {
-    setGameState('home');
-    setResults([]);
   };
 
   const handleHelp = () => {
@@ -53,7 +49,7 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
         <GamePlay
           words={assessment.words}
           title={assessment.title}
-          onHome={handleHome}
+          onHome={onComplete}
           onHelp={handleHelp}
           onComplete={handleComplete}
         />
@@ -62,7 +58,7 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
       {gameState === 'results' && (
         <ResultsScreen
           results={results}
-          onHome={handleHome}
+          onHome={onComplete}
           onPlayAgain={handlePlayAgain}
         />
       )}

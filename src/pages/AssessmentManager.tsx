@@ -5,9 +5,11 @@ import { Plus, Play, Edit, Trash2 } from 'lucide-react';
 import { AssessmentData } from '@/types/assessment';
 import AssessmentForm from '@/components/AssessmentForm';
 import GuessTheWordAssessment from '@/components/GuessTheWordAssessment';
+import AssessmentFormModal from '@/components/AssessmentFormModal';
 
 const AssessmentManager = () => {
   const [view, setView] = useState<'list' | 'form' | 'play'>('list');
+  const [openForm, setOpenForm] = useState<boolean>(false);
   const [assessments, setAssessments] = useState<AssessmentData[]>([
     {
       id: '1',
@@ -38,6 +40,11 @@ const AssessmentManager = () => {
     setAssessments(prev => prev.filter(a => a.id !== id));
   };
 
+  const handleEditAssessment = (assessment: AssessmentData) => {
+    setSelectedAssessment(assessment);
+    setView('form');
+  };
+
   if (view === 'form') {
     return (
       <AssessmentForm
@@ -49,96 +56,93 @@ const AssessmentManager = () => {
 
   if (view === 'play' && selectedAssessment) {
     return (
-      <GuessTheWordAssessment assessment={selectedAssessment} />
+      <GuessTheWordAssessment assessment={selectedAssessment} onComplete={() => {console.log("clcc");setView('list')}} />
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4 create-game-bg">
       <div className="w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-20">
+        {/* <div className="flex items-center justify-between mb-20">
           <h1 className="text-3xl font-bold text-white">Assessment Manager</h1>
           <Button onClick={() => setView('form')} className='create-btn'>
             <Plus className="w-4 h-4 mr-2" />
             Create New Assessment
           </Button>
+        </div> */}
+        <header className="bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+                        🕵️&zwj;♀️ Word Detective
+                    </h1>
+                    <p className="text-purple-100 text-sm">Create fun word games for kids!</p>
+                </div>
+                <button onClick={() => setOpenForm(true)} className="bg-yellow-400 hover:bg-yellow-500 text-purple-800 px-6 py-3 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    ✨ Create New Game
+                </button>
+            </div>
         </div>
+    </header>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {assessments.map((assessment) => (
-            <Card
-              key={assessment.id}
-              className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md  transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] min-h-[360px] flex flex-col justify-between"
-            >
-              {/* Animated gradient ring */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 blur-xl opacity-20 animate-pulse z-0 rounded-2xl" />
-
-              {/* Header */}
-              <CardHeader className="relative z-10 text-center space-y-2 py-5">
-                <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-                  {assessment.title}
-                </h2>
-                <p className="text-md text-gray-700">
-                  {assessment.words.length} word{assessment.words.length !== 1 ? 's' : ''}
-                </p>
-              </CardHeader>
-
-              {/* Content and buttons */}
-              <CardContent className="relative z-10 p-5 flex flex-col justify-between flex-grow">
-                <div className="space-y-4 text-sm text-gray-700">
-                  <div>
-                    <h4 className="mb-2 text-lg font-semibold text-gray-800">🧠 Words:</h4>
-                    <div className="space-y-1">
-                      {assessment.words.slice(0, 3).map((word) => (
-                        <div key={word.id} className="flex justify-between">
-                          <span className="font-medium">{word.word}</span>
-                          {word.hint && <span className="text-gray-400 italic">({word.hint})</span>}
-                        </div>
-                      ))}
-                      {assessment.words.length > 3 && (
-                        <p className="text-xs text-gray-400 italic">
-                          +{assessment.words.length - 3} more...
-                        </p>
-                      )}
+            <div key={assessment.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-lg border-2 border-purple-200 p-6 card-hover">
+                <div className="mb-4">
+                    <h3 className="text-xl font-bold text-purple-800 mb-2 flex items-center gap-2">
+                        🎯 {assessment.title}
+                    </h3>
+                    <p className="text-purple-600 font-medium flex items-center gap-1">
+                       {assessment.type}
+                    </p>
+                </div>
+                
+                <div className="mb-4">
+                    <div className="text-sm font-bold text-purple-700 mb-2 flex items-center gap-1">
+                        👀 Preview:
                     </div>
-                  </div>
+                    <div className="flex flex-wrap gap-2">
+                      {assessment.words.slice(0, 3).map((word) => (
+                        <span key={word.id} className="bg-gradient-to-r from-yellow-200 to-pink-200 text-purple-800 px-3 py-1 rounded-full text-sm font-bold">{word.word}</span>
+                      ))}
+                       
+                        {assessment.words.length > 3 && (
+                          <span className="text-purple-500 text-sm font-bold">+ {assessment.words.length - 3} more...!</span>
+                          )}
+                    </div>
                 </div>
-
-                {/* Buttons always fixed to bottom of card */}
-                <div className="flex gap-3 pt-5 mt-auto">
-                  <Button
-                    size="sm"
-                    onClick={() => handlePlayAssessment(assessment)}
-                    className="flex-1 bg-gradient-to-r from-green-400 to-teal-500 text-white hover:brightness-110 transition-all font-bold shadow-sm"
-                  >
-                    <Play className="w-4 h-4 mr-2" />
-                    Play
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    className="bg-red-500 hover:bg-red-600 transition-all"
-                    onClick={() => handleDeleteAssessment(assessment.id)}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
+                
+                <div className="flex space-x-2">
+                    <button onClick={() => handlePlayAssessment(assessment)} className="flex-1 bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white py-3 px-4 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        🎮 Play
+                    </button>
+                    <button onClick={() => handleEditAssessment(assessment)} className="flex-1 bg-gradient-to-r from-blue-400 to-purple-500 hover:from-blue-500 hover:to-purple-600 text-white py-3 px-4 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        ✏️ Edit
+                    </button>
+                    <button onClick={() => handleDeleteAssessment(assessment.id)} className="bg-gradient-to-r from-red-400 to-pink-500 hover:from-red-500 hover:to-pink-600 text-white py-3 px-3 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        🗑️
+                    </button>
                 </div>
-              </CardContent>
-            </Card>
+            </div>
+        </div>
           ))}
         </div>
 
 
         {assessments.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 mb-4">No assessments created yet.</p>
-            <Button onClick={() => setView('form')}>
-              <Plus className="w-4 h-4 mr-2" />
-              Create Your First Assessment
-            </Button>
-          </div>
+          <div className="text-center py-16 hidden">
+          <div className="text-8xl mb-4 animate-bounce">🎮</div>
+          <h3 className="text-2xl font-bold text-purple-700 mb-2">No assessments yet!</h3>
+          <p className="text-purple-600 mb-6 text-lg">Let's create your first awesome assessment!</p>
+          <button className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+              🚀 Create Your First Game
+          </button>
+      </div>
         )}
       </div>
+      <AssessmentFormModal isOpen={openForm} onOpenChange={setOpenForm} onSubmit={handleCreateAssessment} onCancel={() => {setOpenForm(false)}} />
     </div>
   );
 };

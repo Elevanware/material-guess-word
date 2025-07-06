@@ -18,7 +18,7 @@ const Home = () => {
   };
 
   return (
-    <GuessTheWordAssessment assessment={sampleAssessment} />
+    <GuessTheWordAssessment assessment={sampleAssessment} onComplete={() => {}} />
   );
 };
 
