@@ -18,7 +18,7 @@ const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({ onPlay, onHelp, tit
               <img src='/images/Picture3.png' className='h-60' />
             </div>
           </div>
-          
+
           <h1 className="text-7xl font-black text-gray-800 mx-auto word">
             What's The Word?
           </h1>
@@ -31,20 +31,19 @@ const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({ onPlay, onHelp, tit
             <img className='h-80' src='/images/Picture2.png' />
           </div>
 
-            <h2 onClick={onPlay} className="text-8xl font-black text-white mb-8 play-btn animate__backInDown">Play</h2>
+          <h2 onClick={onPlay} className="text-8xl font-black text-white mb-8 play-btn animate__backInDown">Play</h2>
           <div className="game-img-right">
             <img className='h-80' src='/images/Picture1.png' />
           </div>
         </div>
 
-        <Button 
+        <div
           onClick={onHelp}
-          variant="outline"
-          className="bg-white hover:bg-gray-50 text-gray-700 text-xl px-8 py-4 rounded-full shadow-lg border-2 border-gray-300 help-btn"
+          className="text-white text-xl help-btn"
         >
-          <HelpCircle className="mr-2 h-6 w-6" />
-          Help
-        </Button>
+          <HelpCircle className="mr-2 h-10 w-10" />
+
+        </div>
       </div>
     </div>
   );

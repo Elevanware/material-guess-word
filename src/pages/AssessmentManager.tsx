@@ -85,7 +85,7 @@ const AssessmentManager = () => {
               </h1>
               <p className="text-purple-100 text-sm">Create fun word games for kids!</p>
             </div>
-            <button onClick={() => setOpenForm(true)} className="text-sm bg-white text-black-800 px-8 py-4 rounded-full font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button onClick={() => setOpenForm(true)} className="text-sm bg-white text-black-800 px-8 py-4 rounded-md font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
               Create New Game
             </button>
           </div>

@@ -48,7 +48,7 @@ const WordDisplay: React.FC<WordDisplayProps> = ({ word, guessedLetters, isWordC
           <div
             key={index}
             className={`
-              px-5 py-3 w-20 h-20 rounded-lg flex items-center justify-center shadow-lg transition-all duration-300
+               w-25 h-25 rounded-lg flex items-center justify-center shadow-lg transition-all duration-300
               ${isRevealed 
                 ? isWordComplete 
                   ? 'bg-black gradient-border' // custom class
@@ -60,6 +60,7 @@ const WordDisplay: React.FC<WordDisplayProps> = ({ word, guessedLetters, isWordC
             <span
               className={`
                 text-7xl font-bold
+                apha-letters
                 ${isRevealed ? `animate__animated animate__zoomIn ${letterColor}` : 'text-gray-800'}
               `}
             >

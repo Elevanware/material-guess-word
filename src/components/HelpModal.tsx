@@ -20,19 +20,19 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, isOpenChange }) => {
         <div className="relative bg-white rounded-2xl p-6 max-h-[80vh] flex flex-col">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">How to Play</h2>
+            <h2 className="text-2xl font-bold text-gray-800">How to Play</h2>
           </div>
 
           {/* Scrollable Content */}
           <div className="overflow-y-auto pr-2 custom-scroll flex-1 space-y-6 text-gray-700">
             <div>
-              <h3 className="text-xl font-bold mb-2 text-blue-600">🎯 Objective</h3>
+              <h3 className="text-lg font-bold mb-1 text-gray">1. Objective</h3>
               <p>Guess the hidden word by clicking on letters from the alphabet grid!</p>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-2 text-green-600">📋 How to Play</h3>
-              <ul className="list-disc list-inside space-y-2">
+              <h3 className="text-lg font-bold mb-1 text-gray">2. How to Play</h3>
+              <ul className="list-disc list-inside space-y-1">
                 <li>Each box represents one letter of the hidden word.</li>
                 <li>Click on letters from the colorful grid below.</li>
                 <li>Correct letters are revealed in the word.</li>
@@ -42,8 +42,8 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, isOpenChange }) => {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-2 text-purple-600">⚡ Tips</h3>
-              <ul className="list-disc list-inside space-y-2">
+              <h3 className="text-lg font-bold mb-1 text-gray">3. Tips</h3>
+              <ul className="list-disc list-inside space-y-1">
                 <li>Start with vowels like A, E, I, O, U.</li>
                 <li>Look for word patterns or themes.</li>
                 <li>Use “Skip” if totally stuck.</li>
@@ -52,7 +52,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, isOpenChange }) => {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-2 text-red-600">🏆 Scoring</h3>
+              <h3 className="text-lg font-bold mb-1 text-gray">4. Scoring</h3>
               <p>Solve words correctly for points. Mistakes help you improve!</p>
             </div>
           </div>
@@ -61,10 +61,9 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, isOpenChange }) => {
           <div className="mt-6 text-center">
             <Button
               onClick={() => isOpenChange(false)}
-              className="relative inline-flex items-center justify-center px-8 py-6 text-lg font-bold text-white transition duration-300 ease-in-out bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 focus:outline-none"
+              className="px-10 py-6 bg-black text-md font-bold text-white transition duration-300 ease-in-out rounded-md"
             >
-              <span className="relative z-10">🎮 Let’s Play</span>
-              <span className="absolute inset-0 bg-white opacity-10 rounded-full blur-md"></span>
+              <span className="relative z-10">Let’s Play</span>
             </Button>
 
           </div>

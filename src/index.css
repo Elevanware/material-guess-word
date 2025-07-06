@@ -144,7 +144,9 @@ box-shadow: none !important;
   z-index: 0;
   padding: 0px;
 }
-
+.result-page{
+  padding: 25px;
+}
 .create-game-bg::before, .result-page::before {
   content: "";
   position: absolute;
@@ -198,6 +200,7 @@ box-shadow: none !important;
   position: absolute;
   bottom: 15px;
   right: 15px;
+  cursor: pointer;
 }
 
 .word {

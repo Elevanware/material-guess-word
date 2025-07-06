@@ -155,14 +155,13 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
         </div>
       </div>
        {/* Help Button */}
-        <Button 
+        <div 
           onClick={onHelp}
-          variant="outline"
-          className="bg-white hover:bg-gray-50 text-gray-700 text-xl px-8 py-4 rounded-full shadow-lg border-2 border-gray-300 help-btn"
+          className="text-white text-xl help-btn"
         >
-          <HelpCircle className="mr-2 h-6 w-6" />
-          Help
-        </Button>
+          <HelpCircle className="mr-2 h-10 w-10" />
+          
+        </div>
     </div>
   );
 };
