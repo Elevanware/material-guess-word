@@ -106,7 +106,7 @@ const AssessmentManager = () => {
                   )}
                 </div>
 
-                <div className="mb-4 mt-5">
+                <div className="mb-4 mt-8">
                   <div className="text-sm font-medium text-gray-600 mb-2">Preview Words</div>
                   <div className="flex flex-wrap gap-2">
                     {assessment.words.slice(0, 3).map((word) => (
@@ -123,16 +123,16 @@ const AssessmentManager = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mt-10">
+                <div className="flex flex-wrap gap-2 mt-15">
                   <button
                     onClick={() => handlePlayAssessment(assessment)}
-                    className="flex-1 bg-gray-800 text-white text-sm py-2 px-4 rounded-md hover:bg-gray-700 transition"
+                    className="flex-1 bg-black text-white text-md py-2 px-4 rounded-md transition"
                   >
                     Play
                   </button>
                   <button
                     onClick={() => handleEditAssessment(assessment)}
-                    className="flex-1 border-1 bg-gray-100 text-gray-800 text-sm py-2 px-4 rounded-md hover:bg-gray-200 transition"
+                    className="flex-1 border-1 bg-gray-100 text-black text-md py-2 px-4 rounded-md hover:bg-gray-200 transition"
                   >
                     Edit
                   </button>
