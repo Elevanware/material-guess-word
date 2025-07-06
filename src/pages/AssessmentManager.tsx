@@ -22,6 +22,20 @@ const AssessmentManager = () => {
         { id: '4', word: 'SMART', hint: 'Very clever' },
         { id: '5', word: 'STRONG', hint: 'Has power' },
       ]
+    },
+    {
+      id: '2',
+      title: "I am... a Forest Friend!",
+      type: 'guess-the-word',
+      words: [
+        { id: '1', word: 'TIGER', hint: 'I am the biggest wild cat with orange fur and black stripes.' },
+        { id: '2', word: 'MONKEY', hint: 'I am clever and love swinging from trees and eating bananas.' },
+        { id: '3', word: 'BEAR', hint: 'I am big and strong, I love honey and can sleep all winter.' },
+        { id: '4', word: 'OWL', hint: 'I am wise and can see in the dark, saying "hoot hoot" at night.' },
+        { id: '5', word: 'DEER', hint: 'I have antlers and run fast through the forest.' },
+        { id: '6', word: 'ELEPHANT', hint: 'I am the biggest animal on land, with a long trunk.' },
+        { id: '7', word: 'FOX', hint: 'I am clever and have a bushy tail and red fur.'}
+      ]
     }
   ]);
   const [selectedAssessment, setSelectedAssessment] = useState<AssessmentData | null>(null);

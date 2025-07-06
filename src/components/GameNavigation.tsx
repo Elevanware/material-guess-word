@@ -33,7 +33,7 @@ const GameNavigation: React.FC<GameNavigationProps> = ({
           <Tooltip.Provider delayDuration={999999}>
             <Tooltip.Root open={open} onOpenChange={(state) => {
               // Prevent Radix from closing on blur/hover-out
-              if (!state && open) return;
+             
               setOpen(state);
             }}>
               <Tooltip.Trigger asChild>

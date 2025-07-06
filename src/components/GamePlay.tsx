@@ -5,11 +5,11 @@ import WordDisplay from './WordDisplay';
 import AlphabetGrid from './AlphabetGrid';
 import GameNavigation from './GameNavigation';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, HelpCircle } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 
 const levelUpAudio = new Audio(`/sound/level-up.mp3`);
 const failureAudio = new Audio(`/sound/failure.mp3`);
-
+const winAudio = new Audio(`/sound/winSound.aac`);
 interface GamePlayProps {
   words: WordData[];
   title: string;
@@ -29,6 +29,9 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
   const currentWord = words[currentWordIndex];
   const wordLetters = new Set(currentWord.word.toUpperCase().split(''));
   const isWordComplete = [...wordLetters].every(letter => guessedLetters.has(letter));
+  if(isWordComplete){
+    winAudio.play();
+  }
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -78,7 +81,6 @@ const GamePlay: React.FC<GamePlayProps> = ({ words, title, onHome, onHelp, onCom
   };
 
   const showNext = isWordComplete || wrongGuesses >= 5
-  console.log(currentWord)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-700 via-slate-600 to-slate-800 home-page">
