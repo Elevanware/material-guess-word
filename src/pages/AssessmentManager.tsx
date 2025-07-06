@@ -42,7 +42,7 @@ const AssessmentManager = () => {
 
   const handleEditAssessment = (assessment: AssessmentData) => {
     setSelectedAssessment(assessment);
-    setView('form');
+    setOpenForm(true);
   };
 
   if (view === 'form') {
@@ -85,11 +85,11 @@ const AssessmentManager = () => {
             </div>
         </div>
     </header>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {assessments.map((assessment) => (
-            <div key={assessment.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-lg border-2 border-purple-200 p-6 card-hover">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="assessmentsGrid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {assessments.map((assessment) => (
+            
+            <div key={assessment.id} className="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-lg border-2 border-purple-200 p-6 card-hover">
                 <div className="mb-4">
                     <h3 className="text-xl font-bold text-purple-800 mb-2 flex items-center gap-2">
                         🎯 {assessment.title}
@@ -126,9 +126,12 @@ const AssessmentManager = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        
           ))}
-        </div>
+    </div>
+    </main>
+
+        
 
 
         {assessments.length === 0 && (
@@ -142,7 +145,7 @@ const AssessmentManager = () => {
       </div>
         )}
       </div>
-      <AssessmentFormModal isOpen={openForm} onOpenChange={setOpenForm} onSubmit={handleCreateAssessment} onCancel={() => {setOpenForm(false)}} />
+      <AssessmentFormModal isOpen={openForm} onOpenChange={setOpenForm} onSubmit={handleCreateAssessment} onCancel={() => {setOpenForm(false)}} selectedAssessment={selectedAssessment}  />
     </div>
   );
 };

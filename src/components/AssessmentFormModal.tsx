@@ -22,13 +22,14 @@ interface AssessmentFormModalProps {
     isOpen: boolean
     onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
     onSubmit: (assessment: AssessmentData) => void;
+    selectedAssessment?: AssessmentData
   onCancel: () => void;
 }
-const AssessmentFormModal = ({ isOpen, onOpenChange,  onSubmit, onCancel}: AssessmentFormModalProps) => {
+const AssessmentFormModal = ({ isOpen, onOpenChange,  onSubmit, onCancel, selectedAssessment}: AssessmentFormModalProps) => {
 
     const form = useForm<AssessmentFormData>({
         resolver: zodResolver(assessmentSchema),
-        defaultValues: {
+        defaultValues: selectedAssessment || {
           title: '',
           words: [{ word: '', hint: '' }],
         },
