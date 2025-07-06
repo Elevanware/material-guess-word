@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { AssessmentData, GuessResult } from '@/types/assessment';
+import React, { useState, useCallback } from 'react';
+import { AssessmentData, GuessResult, GuessTheWordAssessment as GuessTheWordAssessmentType } from '@/types/assessment';
 import GuessTheWordHome from './GuessTheWordHome';
 import GamePlay from './GamePlay';
 import HelpModal from './HelpModal';
 import ResultsScreen from './ResultScreen';
+import { useNavigate } from 'react-router-dom';
 
 interface GuessTheWordAssessmentProps {
-  assessment: AssessmentData;
+  assessment: GuessTheWordAssessmentType;
   onComplete: () => void
 }
 
 type GameState = 'home' | 'playing' | 'results';
 
 const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessment, onComplete }) => {
+  const navigate = useNavigate();
   const [gameState, setGameState] = useState<GameState>('home');
   const [showHelp, setShowHelp] = useState(false);
   const [results, setResults] = useState<GuessResult[]>([]);
@@ -20,6 +22,15 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
   const handlePlay = () => {
     setGameState('playing');
   };
+
+  const handleHome = useCallback(() => {
+    if (gameState === 'results') {
+      navigate('/'); // Return to assessment list
+    } else {
+      setGameState('home');
+      setResults([]);
+    }
+  }, [gameState, navigate]);
 
   const handleHelp = () => {
     setShowHelp(true);

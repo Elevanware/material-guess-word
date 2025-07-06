@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Play, Edit, Trash2 } from 'lucide-react';
+import { Plus, Play, Trash2 } from 'lucide-react';
 import { AssessmentData } from '@/types/assessment';
 import AssessmentForm from '@/components/AssessmentForm';
 import GuessTheWordAssessment from '@/components/GuessTheWordAssessment';
 import AssessmentFormModal from '@/components/AssessmentFormModal';
+import ImagePuzzleGame from '@/components/ImagePuzzleGame';
+import Layout from '@/components/Layout';
 
 const AssessmentManager = () => {
   const [view, setView] = useState<'list' | 'form' | 'play'>('list');
@@ -59,22 +61,24 @@ const AssessmentManager = () => {
     setOpenForm(true);
   };
 
-  if (view === 'form') {
-    return (
-      <AssessmentForm
-        onSubmit={handleCreateAssessment}
-        onCancel={() => setView('list')}
-      />
-    );
-  }
 
   if (view === 'play' && selectedAssessment) {
-    return (
-      <GuessTheWordAssessment assessment={selectedAssessment} onComplete={() => { console.log("clcc"); setView('list') }} />
-    );
+    if (selectedAssessment.type === 'guess-the-word') {
+      return <GuessTheWordAssessment assessment={selectedAssessment} onComplete={() => { console.log("clcc"); setView('list') }} />;
+    } else {
+      return <ImagePuzzleGame 
+        assessment={selectedAssessment} 
+        onComplete={(result) => {
+          console.log('Puzzle completed:', result);
+          
+        }} 
+      />;
+    }
   }
+   
 
   return (
+    <Layout>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4 create-game-bg">
       <div className="w-full mx-auto">
         <header className="bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg relative z-10">
@@ -104,24 +108,35 @@ const AssessmentManager = () => {
         {assessment.type === 'guess-the-word' && (
           <p className="text-sm text-gray-500 mt-1">Guess the word game</p>
         )}
+        {assessment.type === 'image-puzzle' && (
+          <p className="text-sm text-gray-500 mt-1">Puzzle Game</p>
+        )}
       </div>
-
-      <div className="mb-4 mt-5">
-        <div className="text-sm font-medium text-gray-600 mb-2">Preview Words</div>
-        <div className="flex flex-wrap gap-2">
-          {assessment.words.slice(0, 3).map((word) => (
-            <span
-              key={word.id}
-              className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
-            >
-              {word.word}
-            </span>
-          ))}
-          {assessment.words.length > 3 && (
-            <span className="text-sm text-gray-400">+ {assessment.words.length - 3} more</span>
-          )}
+      {assessment.type === 'guess-the-word' ? (
+          <div className="mb-4 mt-5">
+          <div className="text-sm font-medium text-gray-600 mb-2">Preview Words</div>
+          <div className="flex flex-wrap gap-2">
+            {assessment.words.slice(0, 3).map((word) => (
+              <span
+                key={word.id}
+                className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+              >
+                {word.word}
+              </span>
+            ))}
+  
+            {assessment.words.length > 3 && (
+              <span className="text-sm text-gray-400">+ {assessment.words.length - 3} more</span>
+            )}
+          </div>
         </div>
+      ):(
+        <div className="mb-4 mt-5">
+        <div className="text-sm font-medium text-gray-600 mb-2">Preview Puzzle</div>
+        <img src={assessment.puzzle.finalImageUrl} alt={assessment.title} className="w-32 h-32 object-cover rounded-md" />
       </div>
+      )}
+      
 
       <div className="flex flex-wrap gap-2 mt-10">
         <button
@@ -162,6 +177,7 @@ const AssessmentManager = () => {
       </div>
       <AssessmentFormModal isOpen={openForm} onOpenChange={setOpenForm} onSubmit={handleCreateAssessment} onCancel={() => { setOpenForm(false) }} selectedAssessment={selectedAssessment} />
     </div>
+    </Layout>
   );
 };
 
