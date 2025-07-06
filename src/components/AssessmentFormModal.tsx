@@ -7,6 +7,7 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useEffect } from 'react';
 
 const assessmentSchema = z.object({
     title: z.string().min(1, 'Assessment title is required'),
@@ -26,14 +27,14 @@ interface AssessmentFormModalProps {
   onCancel: () => void;
 }
 const AssessmentFormModal = ({ isOpen, onOpenChange,  onSubmit, onCancel, selectedAssessment}: AssessmentFormModalProps) => {
-
+console.log("ass", selectedAssessment)
     const form = useForm<AssessmentFormData>({
         resolver: zodResolver(assessmentSchema),
-        defaultValues: selectedAssessment || {
-          title: '',
-          words: [{ word: '', hint: '' }],
-        },
-      });
+        defaultValues:  {
+            title: '',
+            words: [{ word: '', hint: '' }],
+          },
+    });
     
       const { fields, append, remove } = useFieldArray({
         control: form.control,
@@ -60,13 +61,25 @@ const AssessmentFormModal = ({ isOpen, onOpenChange,  onSubmit, onCancel, select
         form.reset();
         onCancel()
       };
+
+      useEffect(() => {
+        if (selectedAssessment) {
+          form.reset({
+            title: selectedAssessment.title,
+            words: selectedAssessment.words.map((word) => ({
+              word: word.word,
+              hint: word.hint,
+            })),
+          });
+        }
+      }, [selectedAssessment, form]);
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent>
         <div className="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden fade-in border-4 border-purple-200">
                 <div className="p-6 border-b border-purple-200 bg-gradient-to-r from-purple-400 to-pink-400">
                     <div className="flex justify-between items-center">
-                        <h2 id="modalTitle" className="text-2xl font-bold text-white flex items-center gap-2">🎯 Create New Game</h2>
+                        <h2 id="modalTitle" className="text-2xl font-bold text-white flex items-center gap-2">🎯 Create New Assessment</h2>
                         <button onClick={handleCancel} className="text-white hover:text-purple-200 text-3xl font-bold">×</button>
                     </div>
                 </div>
