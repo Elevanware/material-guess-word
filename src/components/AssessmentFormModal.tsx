@@ -1,13 +1,13 @@
 
 import { Dialog, DialogContent } from '@/components/ui/dialog'
-import { AssessmentData } from '@/types/assessment';
+import { AnimationConfig, AssessmentData, GameConfig, ThemeConfig } from '@/types/assessment';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useEffect } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 const assessmentSchema = z.object({
   title: z.string().min(1, 'Assessment title is required'),
@@ -15,6 +15,32 @@ const assessmentSchema = z.object({
     word: z.string().min(1, 'Word is required'),
     hint: z.string().optional(),
   })).min(1, 'At least one word is required'),
+  theme: z.object({
+    backgroundColor: z.string().min(1, 'Background color is required'),
+    backgroundImage: z.string().optional(),
+    primaryColor: z.string().min(1, 'Primary color is required'),
+    secondaryColor: z.string().min(1, 'Secondary color is required'),
+    accentColor: z.string().min(1, 'Accent color is required'),
+    textColor: z.string().min(1, 'Text color is required'),
+  }),
+  gameConfig: z.object({
+    maxWrongGuesses: z.number().min(1).max(10),
+    soundEffects: z.object({
+      correctGuess: z.string().min(1, 'Correct guess sound is required'),
+      wrongGuess: z.string().min(1, 'Wrong guess sound is required'),
+      wordComplete: z.string().min(1, 'Word complete sound is required'),
+    }),
+    navigationArrows: z.object({
+      next: z.string().min(1, 'Next arrow image is required'),
+      skip: z.string().min(1, 'Skip arrow image is required'),
+    }),
+  }),
+  animation: z.object({
+    alphabetAnimation: z.enum(['fade', 'bounce', 'slide', 'flip']),
+    wordCompleteAnimation: z.enum(['confetti', 'fireworks', 'sparkle']),
+    transitionSpeed: z.enum(['slow', 'medium', 'fast']),
+    nextSkipAnimation: z.enum(['fade', 'bounce', 'slide', 'flip', 'shake', 'tilt']),
+  })
 });
 
 type AssessmentFormData = z.infer<typeof assessmentSchema>;
@@ -26,12 +52,61 @@ interface AssessmentFormModalProps {
   selectedAssessment?: AssessmentData
   onCancel: () => void;
 }
+
+const defaultTheme: ThemeConfig = {
+  backgroundColor: '#1e293b',
+  primaryColor: '#fbbf24',
+  secondaryColor: '#ffffff',
+  accentColor: '#22c55e',
+  textColor: '#ffffff',
+};
+
+const defaultAnimations: AnimationConfig = {
+  alphabetAnimation: 'fade',
+  wordCompleteAnimation: 'confetti',
+  transitionSpeed: 'medium',
+  nextSkipAnimation: 'tilt',
+};
+
+const defaultGameConfig: GameConfig = {
+  maxWrongGuesses: 5,
+  soundEffects: {
+    correctGuess: '/sound/level-up.mp3',
+    wrongGuess: '/sound/failure.mp3',
+    wordComplete: '/sound/winSound.aac',
+  },
+  navigationArrows: {
+    next: '/images/green-arrow.png',
+    skip: '/images/orange-arrow.png',
+  },
+};
 const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }: AssessmentFormModalProps) => {
   const form = useForm<AssessmentFormData>({
     resolver: zodResolver(assessmentSchema),
     defaultValues: {
       title: '',
       words: [{ word: '', hint: '' }],
+      theme: {
+        backgroundColor: defaultTheme.backgroundColor,
+        backgroundImage: defaultTheme.backgroundImage,
+        primaryColor: defaultTheme.primaryColor,
+        secondaryColor: defaultTheme.secondaryColor,
+        accentColor: defaultTheme.accentColor,
+        textColor: defaultTheme.textColor,
+      },
+      animation: defaultAnimations,
+      gameConfig: {
+        maxWrongGuesses: defaultGameConfig.maxWrongGuesses,
+        soundEffects: {
+          correctGuess: defaultGameConfig.soundEffects.correctGuess,
+          wrongGuess: defaultGameConfig.soundEffects.wrongGuess,
+          wordComplete: defaultGameConfig.soundEffects.wordComplete,
+        },
+        navigationArrows: {
+          next: defaultGameConfig.navigationArrows.next,
+          skip: defaultGameConfig.navigationArrows.skip,
+        },
+      },
     },
   });
 
@@ -50,7 +125,33 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
         word: word.word.toUpperCase(),
         hint: word.hint,
       })),
-    };
+      theme: {
+        backgroundColor: data.theme.backgroundColor,
+        backgroundImage: data.theme.backgroundImage,
+        primaryColor: data.theme.primaryColor,
+        secondaryColor: data.theme.secondaryColor,
+        accentColor: data.theme.accentColor,
+        textColor: data.theme.textColor,
+      },
+      animations: {
+        alphabetAnimation: data.animation.alphabetAnimation,
+        wordCompleteAnimation: data.animation.wordCompleteAnimation,
+        transitionSpeed: data.animation.transitionSpeed,
+        nextSkipAnimation: data.animation.nextSkipAnimation,
+      },
+      gameConfig: {
+        maxWrongGuesses: data.gameConfig.maxWrongGuesses,
+        soundEffects: {
+          correctGuess: data.gameConfig.soundEffects.correctGuess,
+          wrongGuess: data.gameConfig.soundEffects.wrongGuess,
+          wordComplete: data.gameConfig.soundEffects.wordComplete,
+        },
+        navigationArrows: {
+          next: data.gameConfig.navigationArrows.next,
+          skip: data.gameConfig.navigationArrows.skip,
+        },
+      }
+    }
     onSubmit(assessment);
     form.reset();
     onCancel();
@@ -196,6 +297,302 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                         </div>
                       ))}
                     </div>
+                  </div>
+                </div>
+                {/* Theme Configuration Section */}
+                <div>
+                  <h2 className='text-lg font-semibold text-gray-800 mb-2'>Theme Configuration</h2>
+                  <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
+                    <FormField
+                      control={form.control}
+                      name="theme.backgroundColor"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Background Color</FormLabel>
+                          <FormControl>
+                            <Input type="color" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="theme.backgroundImage"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Background Image URL (Optional)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter image URL" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="theme.primaryColor"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Primary Color</FormLabel>
+                            <FormControl>
+                              <Input type="color" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="theme.secondaryColor"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Secondary Color</FormLabel>
+                            <FormControl>
+                              <Input type="color" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="theme.accentColor"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Accent Color</FormLabel>
+                            <FormControl>
+                              <Input type="color" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="theme.textColor"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Text Color</FormLabel>
+                            <FormControl>
+                              <Input type="color" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+
+
+
+
+
+                </div>
+
+                {/* Animation Configuration Section */}
+                <div>
+                  <h2 className='text-lg font-semibold text-gray-800 mb-2'>Animation Configuration</h2>
+                  <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
+                    <FormField
+                      control={form.control}
+                      name="animation.alphabetAnimation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Alphabet Animation</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select animation" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="fade">Fade</SelectItem>
+                              <SelectItem value="bounce">Bounce</SelectItem>
+                              <SelectItem value="slide">Slide</SelectItem>
+                              <SelectItem value="flip">Flip</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="animation.wordCompleteAnimation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Word Complete Animation</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select animation" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="confetti">Confetti</SelectItem>
+                              <SelectItem value="fireworks">Fireworks</SelectItem>
+                              <SelectItem value="sparkle">Sparkle</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="animation.transitionSpeed"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Transition Speed</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select speed" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="slow">Slow</SelectItem>
+                              <SelectItem value="medium">Medium</SelectItem>
+                              <SelectItem value="fast">Fast</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="animation.nextSkipAnimation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Next/Skip Buton Animation</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select Animation" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="fade">Fade</SelectItem>
+                              <SelectItem value="bounce">Bounce</SelectItem>
+                              <SelectItem value="slide">Slide</SelectItem>
+                              <SelectItem value="flip">Flip</SelectItem>
+                              <SelectItem value="shake">Shake</SelectItem>
+                              <SelectItem value="tilt">Tilt</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                {/* Game Configuration Card */}
+                <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
+                  <h2 className="text-lg font-semibold text-gray-800 mb-2">Game Configuration</h2>
+                  <FormField
+                    control={form.control}
+                    name="gameConfig.maxWrongGuesses"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Maximum Wrong Guesses</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            min={1}
+                            max={10}
+                            {...field}
+                            onChange={e => field.onChange(parseInt(e.target.value))}
+                          />
+                        </FormControl>
+                        <FormDescription>Number between 1 and 10</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-medium">Sound Effects</h3>
+                    <FormField
+                      control={form.control}
+                      name="gameConfig.soundEffects.correctGuess"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Correct Guess Sound</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter sound file path" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="gameConfig.soundEffects.wrongGuess"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Wrong Guess Sound</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter sound file path" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="gameConfig.soundEffects.wordComplete"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Word Complete Sound</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter sound file path" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-medium">Navigation Arrows</h3>
+                    <FormField
+                      control={form.control}
+                      name="gameConfig.navigationArrows.next"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Next Arrow Image</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter image path" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="gameConfig.navigationArrows.skip"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Skip Arrow Image</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter image path" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                 </div>
 

@@ -42,6 +42,8 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
           onPlay={handlePlay}
           onHelp={handleHelp}
           title={assessment.title}
+          theme={assessment.theme}
+          animations={assessment.animations}
         />
       )}
 
@@ -52,6 +54,9 @@ const GuessTheWordAssessment: React.FC<GuessTheWordAssessmentProps> = ({ assessm
           onHome={onComplete}
           onHelp={handleHelp}
           onComplete={handleComplete}
+          theme={assessment.theme}
+          animations={assessment.animations}
+          gameConfig={assessment.gameConfig}
         />
       )}
 

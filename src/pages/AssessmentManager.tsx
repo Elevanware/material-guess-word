@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Play, Edit, Trash2, Trash2Icon } from 'lucide-react';
+import { useState } from 'react';
+import {Trash2Icon } from 'lucide-react';
 import { AssessmentData } from '@/types/assessment';
-import AssessmentForm from '@/components/AssessmentForm';
 import GuessTheWordAssessment from '@/components/GuessTheWordAssessment';
 import AssessmentFormModal from '@/components/AssessmentFormModal';
 
@@ -21,7 +18,34 @@ const AssessmentManager = () => {
         { id: '3', word: 'KIND', hint: 'Nice to others' },
         { id: '4', word: 'SMART', hint: 'Very clever' },
         { id: '5', word: 'STRONG', hint: 'Has power' },
-      ]
+      ],
+      gameConfig:{
+        maxWrongGuesses: 5,
+        soundEffects: {
+          correctGuess: '',
+          wrongGuess: '',
+          wordComplete: '',
+        },
+        navigationArrows: {
+          next: '',
+          skip: '',
+        },
+       
+      },
+      animations:{
+          wordCompleteAnimation: 'confetti',
+          alphabetAnimation: 'fade',
+          transitionSpeed: 'slow',
+          nextSkipAnimation: 'tilt',
+      },
+      theme: {
+        backgroundColor: '#1e293b',
+        backgroundImage: '',
+        primaryColor: '#fbbf24',
+        secondaryColor: '#ffffff',
+        accentColor: '#22c55e',
+        textColor: '#ffffff',
+      }
     },
     {
       id: '2',
@@ -35,7 +59,34 @@ const AssessmentManager = () => {
         { id: '5', word: 'DEER', hint: 'I have antlers and run fast through the forest.' },
         { id: '6', word: 'ELEPHANT', hint: 'I am the biggest animal on land, with a long trunk.' },
         { id: '7', word: 'FOX', hint: 'I am clever and have a bushy tail and red fur.' }
-      ]
+      ],
+      gameConfig:{
+        maxWrongGuesses: 5,
+        soundEffects: {
+          correctGuess: '',
+          wrongGuess: '',
+          wordComplete: '',
+        },
+        navigationArrows: {
+          next: '',
+          skip: '',
+        },
+       
+      },
+      animations:{
+          wordCompleteAnimation: 'confetti',
+          alphabetAnimation: 'fade',
+          transitionSpeed: 'slow',
+          nextSkipAnimation: 'tilt',
+      },
+      theme: {
+        backgroundColor: '#1e293b',
+        backgroundImage: '',
+        primaryColor: '#fbbf24',
+        secondaryColor: '#ffffff',
+        accentColor: '#22c55e',
+        textColor: '#ffffff',
+      }
     }
   ]);
   const [selectedAssessment, setSelectedAssessment] = useState<AssessmentData | null>(null);
@@ -70,15 +121,6 @@ const AssessmentManager = () => {
     setSelectedAssessment(null);
     setOpenForm(false);
   };
-
-  if (view === 'form') {
-    return (
-      <AssessmentForm
-        onSubmit={handleCreateAssessment}
-        onCancel={() => {setSelectedAssessment(null); setView('list')}}
-      />
-    );
-  }
 
   if (view === 'play' && selectedAssessment) {
     return (

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import 'animate.css';
+import { ThemeConfig } from '@/types/assessment';
 
 interface AlphabetGridProps {
   usedLetters: Set<string>;
+  theme: ThemeConfig;
+  animationClass: string;
   onLetterClick: (letter: string) => void;
 }
 
