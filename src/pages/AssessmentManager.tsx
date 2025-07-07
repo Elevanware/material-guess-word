@@ -41,7 +41,14 @@ const AssessmentManager = () => {
   const [selectedAssessment, setSelectedAssessment] = useState<AssessmentData | null>(null);
 
   const handleCreateAssessment = (assessment: AssessmentData) => {
+    if(selectedAssessment){
+      let oldAssessments = [...assessments];
+      let index = oldAssessments.findIndex(a => a.id === selectedAssessment.id);
+      oldAssessments[index] = assessment;
+      setAssessments(oldAssessments);
+    }else{
     setAssessments(prev => [...prev, assessment]);
+    }
     setView('list');
   };
 
@@ -59,11 +66,16 @@ const AssessmentManager = () => {
     setOpenForm(true);
   };
 
+  const handleCancel = () => {
+    setSelectedAssessment(null);
+    setOpenForm(false);
+  };
+
   if (view === 'form') {
     return (
       <AssessmentForm
         onSubmit={handleCreateAssessment}
-        onCancel={() => setView('list')}
+        onCancel={() => {setSelectedAssessment(null); setView('list')}}
       />
     );
   }
@@ -160,7 +172,7 @@ const AssessmentManager = () => {
           </div>
         )}
       </div>
-      <AssessmentFormModal isOpen={openForm} onOpenChange={setOpenForm} onSubmit={handleCreateAssessment} onCancel={() => { setOpenForm(false) }} selectedAssessment={selectedAssessment} />
+      <AssessmentFormModal isOpen={openForm} onOpenChange={setOpenForm} onSubmit={handleCreateAssessment} onCancel={handleCancel} selectedAssessment={selectedAssessment} />
     </div>
   );
 };

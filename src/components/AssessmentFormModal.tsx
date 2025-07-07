@@ -26,7 +26,7 @@ interface AssessmentFormModalProps {
   selectedAssessment?: AssessmentData
   onCancel: () => void;
 }
-const AssessmentFormModal = ({ isOpen, onOpenChange, onSubmit, onCancel, selectedAssessment }: AssessmentFormModalProps) => {
+const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }: AssessmentFormModalProps) => {
   const form = useForm<AssessmentFormData>({
     resolver: zodResolver(assessmentSchema),
     defaultValues: {
@@ -42,7 +42,7 @@ const AssessmentFormModal = ({ isOpen, onOpenChange, onSubmit, onCancel, selecte
 
   const handleSubmit = (data: AssessmentFormData) => {
     const assessment: AssessmentData = {
-      id: Date.now().toString(),
+      id: selectedAssessment?.id || Date.now().toString(),
       title: data.title,
       type: 'guess-the-word',
       words: data.words.map((word, index) => ({
@@ -53,7 +53,7 @@ const AssessmentFormModal = ({ isOpen, onOpenChange, onSubmit, onCancel, selecte
     };
     onSubmit(assessment);
     form.reset();
-    onOpenChange(false);
+    onCancel();
   };
 
   const handleCancel = () => {
@@ -62,7 +62,13 @@ const AssessmentFormModal = ({ isOpen, onOpenChange, onSubmit, onCancel, selecte
   };
 
   useEffect(() => {
-    if (selectedAssessment) {
+    // Reset form to default values when selectedAssessment is null
+    if (!selectedAssessment) {
+      form.reset({
+        title: '',
+        words: [{ word: '', hint: '' }],
+      });
+    } else {
       form.reset({
         title: selectedAssessment.title,
         words: selectedAssessment.words.map((word) => ({
@@ -73,20 +79,14 @@ const AssessmentFormModal = ({ isOpen, onOpenChange, onSubmit, onCancel, selecte
     }
   }, [selectedAssessment, form]);
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden border border-gray-200">
+    <Dialog open={isOpen} onOpenChange={handleCancel}>
+      <DialogContent className="p-0 border-0">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden">
           <div className="p-6 border-b border-gray-200 bg-gray-900">
             <div className="flex justify-between items-center">
               <h2 id="modalTitle" className="text-xl font-bold text-white flex items-center gap-2">
-                🎯 Create New Assessment
+                🎯 {selectedAssessment ? 'Edit Assessment' : 'Create New Assessment'}
               </h2>
-              <button
-                onClick={handleCancel}
-                className="text-white hover:text-gray-300 text-3xl font-bold"
-              >
-                ×
-              </button>
             </div>
           </div>
 
