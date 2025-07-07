@@ -70,7 +70,7 @@ const AssessmentManager = () => {
 
   if (view === 'play' && selectedAssessment) {
     return (
-      <GuessTheWordAssessment assessment={selectedAssessment} onComplete={() => { console.log("clcc"); setView('list') }} />
+      <GuessTheWordAssessment assessment={selectedAssessment} onComplete={() => { setSelectedAssessment(null); setView('list') }} />
     );
   }
 
