@@ -438,9 +438,9 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
-                                <SelectItem value="confetti">Confetti</SelectItem>
-                                <SelectItem value="fireworks">Fireworks</SelectItem>
-                                <SelectItem value="sparkle">Sparkle</SelectItem>
+                                <SelectItem value="confetti" className="bg-white hover:bg-gray-100">Confetti</SelectItem>
+                                <SelectItem value="fireworks" className="bg-white hover:bg-gray-100">Fireworks</SelectItem>
+                                <SelectItem value="sparkle" className="bg-white hover:bg-gray-100">Sparkle</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -461,9 +461,9 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
-                                <SelectItem value="slow">Slow</SelectItem>
-                                <SelectItem value="medium">Medium</SelectItem>
-                                <SelectItem value="fast">Fast</SelectItem>
+                                <SelectItem value="slow" className="bg-white hover:bg-gray-100">Slow</SelectItem>
+                                <SelectItem value="medium" className="bg-white hover:bg-gray-100">Medium</SelectItem>
+                                <SelectItem value="fast" className="bg-white hover:bg-gray-100">Fast</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -484,12 +484,12 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
-                                <SelectItem value="fade">Fade</SelectItem>
-                                <SelectItem value="bounce">Bounce</SelectItem>
-                                <SelectItem value="slide">Slide</SelectItem>
-                                <SelectItem value="flip">Flip</SelectItem>
-                                <SelectItem value="shake">Shake</SelectItem>
-                                <SelectItem value="tilt">Tilt</SelectItem>
+                                <SelectItem value="fade" className="bg-white hover:bg-gray-100">Fade</SelectItem>
+                                <SelectItem value="bounce" className="bg-white hover:bg-gray-100">Bounce</SelectItem>
+                                <SelectItem value="slide" className="bg-white hover:bg-gray-100">Slide</SelectItem>
+                                <SelectItem value="flip" className="bg-white hover:bg-gray-100">Flip</SelectItem>
+                                <SelectItem value="shake" className="bg-white hover:bg-gray-100">Shake</SelectItem>
+                                <SelectItem value="tilt" className="bg-white hover:bg-gray-100">Tilt</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
