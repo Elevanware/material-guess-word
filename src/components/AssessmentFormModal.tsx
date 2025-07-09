@@ -289,7 +289,7 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                             <button
                               type="button"
                               onClick={() => remove(index)}
-                              className="text-red-600 hover:text-red-700 text-sm font-semibold bg-red-100 hover:bg-red-200 px-2 py-1 rounded-full transition"
+                              className="text-red-600 hover:text-red-700 text-sm font-semibold px-2 py-1 rounded-full transition"
                             >
                               ❌
                             </button>
@@ -303,33 +303,33 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                 <div>
                   <h2 className='text-lg font-semibold text-gray-800 mb-2'>Theme Configuration</h2>
                   <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
-                    <FormField
-                      control={form.control}
-                      name="theme.backgroundColor"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Background Color</FormLabel>
-                          <FormControl>
-                            <Input type="color" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="theme.backgroundImage"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Background Image URL (Optional)</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter image URL" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
                     <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="theme.backgroundColor"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Background Color</FormLabel>
+                            <FormControl>
+                              <Input type="color" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="theme.backgroundImage"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Background Image URL (Optional)</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter image URL" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                       <FormField
                         control={form.control}
                         name="theme.primaryColor"
@@ -387,217 +387,226 @@ const AssessmentFormModal = ({ isOpen, onSubmit, onCancel, selectedAssessment }:
                       />
                     </div>
                   </div>
-
-
-
-
-
                 </div>
 
                 {/* Animation Configuration Section */}
                 <div>
                   <h2 className='text-lg font-semibold text-gray-800 mb-2'>Animation Configuration</h2>
                   <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
-                    <FormField
-                      control={form.control}
-                      name="animation.alphabetAnimation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Alphabet Animation</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select animation" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="fade">Fade</SelectItem>
-                              <SelectItem value="bounce">Bounce</SelectItem>
-                              <SelectItem value="slide">Slide</SelectItem>
-                              <SelectItem value="flip">Flip</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="animation.alphabetAnimation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Alphabet Animation</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select animation" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
+                                <SelectItem value="fade" className="bg-white hover:bg-gray-100">
+                                  Fade
+                                </SelectItem>
+                                <SelectItem value="bounce" className="bg-white hover:bg-gray-100">
+                                  Bounce
+                                </SelectItem>
+                                <SelectItem value="slide" className="bg-white hover:bg-gray-100">
+                                  Slide
+                                </SelectItem>
+                                <SelectItem value="flip" className="bg-white hover:bg-gray-100">
+                                  Flip
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="animation.wordCompleteAnimation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Word Complete Animation</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select animation" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
+                                <SelectItem value="confetti">Confetti</SelectItem>
+                                <SelectItem value="fireworks">Fireworks</SelectItem>
+                                <SelectItem value="sparkle">Sparkle</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                    <FormField
-                      control={form.control}
-                      name="animation.wordCompleteAnimation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Word Complete Animation</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select animation" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="confetti">Confetti</SelectItem>
-                              <SelectItem value="fireworks">Fireworks</SelectItem>
-                              <SelectItem value="sparkle">Sparkle</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                      <FormField
+                        control={form.control}
+                        name="animation.transitionSpeed"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Transition Speed</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select speed" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
+                                <SelectItem value="slow">Slow</SelectItem>
+                                <SelectItem value="medium">Medium</SelectItem>
+                                <SelectItem value="fast">Fast</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                    <FormField
-                      control={form.control}
-                      name="animation.transitionSpeed"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Transition Speed</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select speed" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="slow">Slow</SelectItem>
-                              <SelectItem value="medium">Medium</SelectItem>
-                              <SelectItem value="fast">Fast</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="animation.nextSkipAnimation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Next/Skip Buton Animation</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select Animation" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="fade">Fade</SelectItem>
-                              <SelectItem value="bounce">Bounce</SelectItem>
-                              <SelectItem value="slide">Slide</SelectItem>
-                              <SelectItem value="flip">Flip</SelectItem>
-                              <SelectItem value="shake">Shake</SelectItem>
-                              <SelectItem value="tilt">Tilt</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                      <FormField
+                        control={form.control}
+                        name="animation.nextSkipAnimation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Next/Skip Buton Animation</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select Animation" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-white text-black shadow-lg border border-gray-200 rounded-md">
+                                <SelectItem value="fade">Fade</SelectItem>
+                                <SelectItem value="bounce">Bounce</SelectItem>
+                                <SelectItem value="slide">Slide</SelectItem>
+                                <SelectItem value="flip">Flip</SelectItem>
+                                <SelectItem value="shake">Shake</SelectItem>
+                                <SelectItem value="tilt">Tilt</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 {/* Game Configuration Card */}
-                <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
+                <div>
                   <h2 className="text-lg font-semibold text-gray-800 mb-2">Game Configuration</h2>
-                  <FormField
-                    control={form.control}
-                    name="gameConfig.maxWrongGuesses"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Maximum Wrong Guesses</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            min={1}
-                            max={10}
-                            {...field}
-                            onChange={e => field.onChange(parseInt(e.target.value))}
-                          />
-                        </FormControl>
-                        <FormDescription>Number between 1 and 10</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-medium">Sound Effects</h3>
+                  <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
                     <FormField
                       control={form.control}
-                      name="gameConfig.soundEffects.correctGuess"
+                      name="gameConfig.maxWrongGuesses"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Correct Guess Sound</FormLabel>
+                          <FormLabel>Maximum Wrong Guesses <span className='text-sm text-red'>(Number between 1 and 10)</span></FormLabel>
                           <FormControl>
-                            <Input placeholder="Enter sound file path" {...field} />
+                            <Input
+                              type="number"
+                              min={1}
+                              max={10}
+                              {...field}
+                              onChange={e => field.onChange(parseInt(e.target.value))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+                    <div className="space-y-4 mt-5">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">Sound Effects</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="gameConfig.soundEffects.correctGuess"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Correct Guess Sound</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter sound file path" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                    <FormField
-                      control={form.control}
-                      name="gameConfig.soundEffects.wrongGuess"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Wrong Guess Sound</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter sound file path" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        <FormField
+                          control={form.control}
+                          name="gameConfig.soundEffects.wrongGuess"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Wrong Guess Sound</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter sound file path" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                    <FormField
-                      control={form.control}
-                      name="gameConfig.soundEffects.wordComplete"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Word Complete Sound</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter sound file path" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                        <FormField
+                          control={form.control}
+                          name="gameConfig.soundEffects.wordComplete"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Word Complete Sound</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter sound file path" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
 
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-medium">Navigation Arrows</h3>
-                    <FormField
-                      control={form.control}
-                      name="gameConfig.navigationArrows.next"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Next Arrow Image</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter image path" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="space-y-4 mt-5">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">Navigation Arrows</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="gameConfig.navigationArrows.next"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Next Arrow Image</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter image path" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                    <FormField
-                      control={form.control}
-                      name="gameConfig.navigationArrows.skip"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Skip Arrow Image</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter image path" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        <FormField
+                          control={form.control}
+                          name="gameConfig.navigationArrows.skip"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Skip Arrow Image</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter image path" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex justify-end space-x-3 pt-10 border-t border-gray-200">
+                <div className="flex justify-end space-x-3 pt-10">
                   <button
                     type="button"
                     onClick={handleCancel}

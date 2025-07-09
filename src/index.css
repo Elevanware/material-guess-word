@@ -123,9 +123,12 @@ box-shadow: none !important;
 }
 .game-bg {
   position: relative;
-  background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover;
+  /* background: url('../public/images/alpha-bg.jpg') no-repeat center center / cover; */
   z-index: 0;
   padding: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .game-bg::before {
@@ -231,8 +234,11 @@ box-shadow: none !important;
 
 .home-page {
   position: relative;
-  background: url('../public/images/alpha-bg1.jpg') no-repeat center center / cover;
+  /* background: url('../public/images/alpha-bg1.jpg') no-repeat center center / cover; */
   z-index: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .home-page::before {

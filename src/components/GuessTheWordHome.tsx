@@ -37,7 +37,7 @@ const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({
 }) => {
   const containerStyle = {
     backgroundColor: theme.backgroundColor,
-    backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : undefined,
+    backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : `url(./images/alpha-bg.jpg)`,
     color: theme.textColor,
   };
 
@@ -55,7 +55,7 @@ const GuessTheWordHome: React.FC<GuessTheWordHomeProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={containerStyle}>
+    <div className="game-bg min-h-screen flex items-center justify-center p-4" style={containerStyle}>
       <div className="text-center max-w-4xl mx-auto w-full mt-40">
         <div 
           className={`relative rounded-3xl p-8 mb-12 shadow-2xl transform transition-transform duration-300 h-100 ${getAnimationClass(animations.alphabetAnimation, animations.transitionSpeed)}`}

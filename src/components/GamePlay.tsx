@@ -130,11 +130,11 @@ const GamePlay: React.FC<GamePlayProps> = ({
 
   const containerStyle = {
     backgroundColor: theme.backgroundColor,
-    backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : undefined,
+    backgroundImage: theme.backgroundImage ? `url(${theme.backgroundImage})` : `url(images/alpha-bg1.jpg)`,
   };
 
   return (
-    <div className="min-h-screen" style={containerStyle}>
+    <div className="min-h-screen home-page" style={containerStyle}>
       <GameNavigation
         onHome={onHome}
         currentWord={currentWordIndex + 1}
@@ -195,7 +195,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
                 disabled={!showNext}
                 className='arrow-btn absolute border-0 -mt-15'
               >
-                <img className='h-40' src={gameConfig.navigationArrows.next} />
+                <img className='h-40' src={gameConfig.navigationArrows.next || '/images/green-arrow.png'} />
               </Button>
             ) : (
               <Button
@@ -203,7 +203,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
                 variant="outline"
                 className='arrow-btn absolute border-0 -mt-15'
               >
-                <img className='h-40' src={gameConfig.navigationArrows.skip} />
+                <img className='h-40' src={gameConfig.navigationArrows.skip || '/images/orange-arrow.png'} />
               </Button>
             )}
           </div>
